@@ -1,9 +1,18 @@
-.app {
-  &__content {
-    margin: 24px 16px 0;
-  }
+.header {
+  position: fixed;
+  z-index: 1;
+  margin-bottom: 64px;
+  width: 100%;
+}
 
-  :global(.ant-layout-content) {
-    min-height: calc(100vh - 48px - 24px - 64px);
+.content {
+  margin: calc(64px + 48px + 24px) 16px 0;
+
+  &:global(.ant-layout-content) {
+    min-height: calc(100vh - 48px - 70px - 24px - 64px);
   }
+}
+
+.footer {
+  text-align: center;
 }

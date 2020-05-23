@@ -10,7 +10,7 @@ import routes from '../../routes';
 import { addTypeAction } from '../Types/actionCreators';
 import { getPageNameFromPathName } from '../../utils/utils';
 
-const { Content } = Layout;
+const { Content, Footer } = Layout;
 
 function App({ types, onTypeAdd }) {
   const location = useLocation();
@@ -74,15 +74,21 @@ function App({ types, onTypeAdd }) {
   ];
 
   return (
-    <Layout className={styles.app}>
-      <Header
-        defaultSelectedMenu={[
-          getPageNameFromPathName(location.pathname) || 'all',
-        ]}
-        menuOptions={menuOptions}
-        actionBar={actionBar(getPageNameFromPathName(location.pathname))}
-      />
-      <Content className={styles.app__content}>{routes}</Content>
+    <Layout>
+      <div className={styles.header}>
+        <Header
+          defaultSelectedMenu={[
+            getPageNameFromPathName(location.pathname) || 'all',
+          ]}
+          menuOptions={menuOptions}
+          actionBar={actionBar(getPageNameFromPathName(location.pathname))}
+        />
+      </div>
+
+      <Content className={styles.content}>{routes}</Content>
+      <Footer className={styles.footer}>
+        CMM Inc. &copy; {new Date().getFullYear()}
+      </Footer>
     </Layout>
   );
 }

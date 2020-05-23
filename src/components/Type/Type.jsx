@@ -60,65 +60,59 @@ function Type({
   );
 
   return (
-    <div>
-      <Card
-        title={name}
-        extra={<Button onClick={handleDeleteClick} icon={<DeleteOutlined />} />}
-      >
-        <Form name={name} layout="vertical">
-          <Form.Item initialValue={name} label="Object type" name="objectType">
-            <Input onChange={(event) => onNameChange(id, event.target.value)} />
-          </Form.Item>
+    <Card
+      title={name}
+      extra={<Button onClick={handleDeleteClick} icon={<DeleteOutlined />} />}
+    >
+      <Form name={name} layout="vertical">
+        <Form.Item initialValue={name} label="Object type" name="objectType">
+          <Input onChange={(event) => onNameChange(id, event.target.value)} />
+        </Form.Item>
 
-          <Form.Item
-            initialValue={title}
-            label="Object title"
-            name="objectTitle"
+        <Form.Item initialValue={title} label="Object title" name="objectTitle">
+          <Select
+            onChange={(selectedTitle) => onTitleChange(id, selectedTitle)}
           >
-            <Select
-              onChange={(selectedTitle) => onTitleChange(id, selectedTitle)}
-            >
-              {fields.map((field) => (
-                <Option key={field.id} value={field.id}>
-                  {field.text}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
+            {fields.map((field) => (
+              <Option key={field.id} value={field.id}>
+                {field.text}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
 
-          {fields.map((field, index) => (
-            <Form.Item key={field.id} label={index === 0 ? 'Fields' : ''}>
-              <Field
-                id={field.id}
-                text={field.text}
-                type={field.type}
-                onDelete={(fieldId) => {
-                  if (fields.length === 1) {
-                    message.warning('At least one field is required.');
-                  } else {
-                    onFieldRemove(id, fieldId);
-                  }
-                }}
-                onTextChange={(fieldId, text) =>
-                  onFieldTextChange(id, fieldId, text)
+        {fields.map((field, index) => (
+          <Form.Item key={field.id} label={index === 0 ? 'Fields' : ''}>
+            <Field
+              id={field.id}
+              text={field.text}
+              type={field.type}
+              onDelete={(fieldId) => {
+                if (fields.length === 1) {
+                  message.warning('At least one field is required.');
+                } else {
+                  onFieldRemove(id, fieldId);
                 }
-                onTypeChange={(fieldId, type) =>
-                  onFieldTypeChange(id, fieldId, type)
-                }
-              />
-            </Form.Item>
-          ))}
-
-          <Form.Item>
-            <Dropdown overlay={menu}>
-              <Button block>
-                Add Field <DownOutlined />
-              </Button>
-            </Dropdown>
+              }}
+              onTextChange={(fieldId, text) =>
+                onFieldTextChange(id, fieldId, text)
+              }
+              onTypeChange={(fieldId, type) =>
+                onFieldTypeChange(id, fieldId, type)
+              }
+            />
           </Form.Item>
-        </Form>
-      </Card>
-    </div>
+        ))}
+
+        <Form.Item>
+          <Dropdown overlay={menu}>
+            <Button block>
+              Add Field <DownOutlined />
+            </Button>
+          </Dropdown>
+        </Form.Item>
+      </Form>
+    </Card>
   );
 }
 

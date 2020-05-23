@@ -9,7 +9,7 @@ const { Header: AntdHeader } = Layout;
 function Header({ defaultSelectedMenu, menuOptions, actionBar }) {
   return (
     <>
-      <AntdHeader className={styles.root}>
+      <AntdHeader className={styles.header}>
         <Row type="flex">
           <div className={styles.logo}>CMMI</div>
         </Row>
