@@ -1,7 +1,19 @@
 {
   "name": "cmmi-inventory",
   "version": "0.1.0",
+  "description": "React app to manage Machines Inventory for Construction Machine Management Inc.",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vibhanshuc/cmmi-inventory.git"
+  },
+  "keywords": [],
+  "author": "Vibhanhsu Chaturvedi <vibhanshu86@gmail.com> (https://vibhanshu.in)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vibhanshuc/cmmi-inventory/issues"
+  },
+  "homepage": "https://github.com/vibhanshuc/cmmi-inventory#readme",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
