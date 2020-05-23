@@ -1,23 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Button, DatePicker } from 'antd';
 import * as serviceWorker from './serviceWorker';
-
+import App from './App';
 import 'antd/dist/antd.css';
-import './index.css';
-
-const App = () => (
-    <>
-        <Button type="primary">PRESS ME</Button>
-        <DatePicker placeholder="select date" />
-    </>
-);
+import './index.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-      <App />
+    <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
