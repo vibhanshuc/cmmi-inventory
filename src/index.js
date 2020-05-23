@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { Button, DatePicker } from 'antd';
 import * as serviceWorker from './serviceWorker';
+
+import 'antd/dist/antd.css';
+import './index.css';
+
+const App = () => (
+    <>
+        <Button type="primary">PRESS ME</Button>
+        <DatePicker placeholder="select date" />
+    </>
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
