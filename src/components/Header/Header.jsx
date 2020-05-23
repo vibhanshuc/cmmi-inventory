@@ -1,44 +1,41 @@
 import React from 'react';
-import { Layout, Row, Menu, Dropdown, Button } from 'antd';
+import { Layout, Row, Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import { DownOutlined } from '@ant-design/icons';
+import { arrayOf, node, shape, string } from 'prop-types';
 import styles from './Header.module.scss';
 
 const { Header: AntdHeader } = Layout;
 
-function Header() {
-  function handleMenuClick(e) {
-    console.log('click', e);
-  }
-
-  const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1">1st item</Menu.Item>
-      <Menu.Item key="2">2nd item</Menu.Item>
-      <Menu.Item key="3">3rd item</Menu.Item>
-    </Menu>
-  );
-
+function Header({ defaultSelectedMenu, menuOptions, actionBar }) {
   return (
     <AntdHeader className={styles.root}>
       <Row type="flex">
         <div className={styles.logo}>CMMI</div>
-        <Menu theme="dark" mode="horizontal">
-          <Menu.Item key="1">
-            <Link to="/">All</Link>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Link to="/types">Manage Types</Link>
-          </Menu.Item>
+        <Menu
+          defaultSelectedKeys={defaultSelectedMenu}
+          theme="dark"
+          mode="horizontal"
+        >
+          {menuOptions.map((option) => (
+            <Menu.Item key={option.key}>
+              <Link to={option.link}>{option.label}</Link>
+            </Menu.Item>
+          ))}
         </Menu>
       </Row>
-      <Dropdown overlay={menu}>
-        <Button>
-          Actions <DownOutlined />
-        </Button>
-      </Dropdown>
+      {actionBar}
     </AntdHeader>
   );
 }
+
+Header.propTypes = {
+  defaultSelectedMenu: arrayOf(string).isRequired,
+  menuOptions: arrayOf(shape({})).isRequired,
+  actionBar: node,
+};
+
+Header.defaultProps = {
+  actionBar: null,
+};
 
 export default Header;
