@@ -1,11 +1,16 @@
 import React from 'react';
-import { Button, DatePicker } from 'antd';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Layout } from 'antd';
+import Header from './components/Header/Header';
+import routes from './routes';
 
-const App = () => (
-  <>
-    <Button type="primary">PRESS ME</Button>
-    <DatePicker placeholder="select date" />
-  </>
-);
-
-export default App;
+export default function App() {
+  return (
+    <Layout>
+      <Router>
+        <Header />
+        {routes}
+      </Router>
+    </Layout>
+  );
+}
