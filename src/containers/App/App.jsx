@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Layout, Dropdown, Menu } from 'antd';
+import React, { Suspense } from 'react';
+import { Button, Layout, Dropdown, Menu, Spin, Row } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PlusCircleOutlined, DownOutlined } from '@ant-design/icons';
@@ -8,7 +8,7 @@ import styles from './App.module.scss';
 import Header from '../../components/Header/Header';
 import routes from '../../routes';
 import { addTypeAction } from '../Types/actionCreators';
-import { getPageNameFromPathName } from '../../utils/utils';
+import { getPageNameFromPathName } from '../../utils';
 
 const { Content, Footer } = Layout;
 
@@ -85,7 +85,17 @@ function App({ types, onTypeAdd }) {
         />
       </div>
 
-      <Content className={styles.content}>{routes}</Content>
+      <Content className={styles.content}>
+        <Suspense
+          fallback={
+            <Row align="middle" justify="center" className={styles.loader}>
+              <Spin />
+            </Row>
+          }
+        >
+          {routes}
+        </Suspense>
+      </Content>
       <Footer className={styles.footer}>
         CMM Inc. &copy; {new Date().getFullYear()}
       </Footer>

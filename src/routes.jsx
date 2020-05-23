@@ -1,7 +1,9 @@
 import { Route, Switch } from 'react-router-dom';
 import React from 'react';
-import Types from './containers/Types/Types';
-import Objects from './containers/Objects/Objects';
+import { lazyLoadWithDelay } from './utils';
+
+const Types = lazyLoadWithDelay(() => import('./containers/Types/Types'));
+const Objects = lazyLoadWithDelay(() => import('./containers/Objects/Objects'));
 
 export default (
   <Switch>
