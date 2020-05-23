@@ -23,7 +23,7 @@ function App({ types, onTypeAdd }) {
   const menu = (
     <Menu onClick={handleMenuClick}>
       {types.map((type) => (
-        <Menu.Item key={type.id}>{type.label || type.id}</Menu.Item>
+        <Menu.Item key={type.id}>{type.name || type.id}</Menu.Item>
       ))}
     </Menu>
   );
@@ -76,7 +76,9 @@ function App({ types, onTypeAdd }) {
   return (
     <Layout className={styles.app}>
       <Header
-        defaultSelectedMenu={[getPageNameFromPathName(location.pathname)]}
+        defaultSelectedMenu={[
+          getPageNameFromPathName(location.pathname) || 'all',
+        ]}
         menuOptions={menuOptions}
         actionBar={actionBar(getPageNameFromPathName(location.pathname))}
       />

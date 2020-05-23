@@ -8,23 +8,25 @@ const { Header: AntdHeader } = Layout;
 
 function Header({ defaultSelectedMenu, menuOptions, actionBar }) {
   return (
-    <AntdHeader className={styles.root}>
-      <Row type="flex">
-        <div className={styles.logo}>CMMI</div>
-        <Menu
-          defaultSelectedKeys={defaultSelectedMenu}
-          theme="dark"
-          mode="horizontal"
-        >
-          {menuOptions.map((option) => (
-            <Menu.Item key={option.key}>
-              <Link to={option.link}>{option.label}</Link>
-            </Menu.Item>
-          ))}
-        </Menu>
-      </Row>
-      {actionBar}
-    </AntdHeader>
+    <>
+      <AntdHeader className={styles.root}>
+        <Row type="flex">
+          <div className={styles.logo}>CMMI</div>
+        </Row>
+        {actionBar}
+      </AntdHeader>
+      <Menu
+        className={styles.menu}
+        defaultSelectedKeys={defaultSelectedMenu}
+        mode="horizontal"
+      >
+        {menuOptions.map((option) => (
+          <Menu.Item key={option.key}>
+            <Link to={option.link}>{option.label}</Link>
+          </Menu.Item>
+        ))}
+      </Menu>
+    </>
   );
 }
 
