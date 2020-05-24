@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import persistState from 'redux-localstorage';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import createReducer from './reducers';
 
 function configureStore(initialState = {}) {
@@ -14,10 +15,18 @@ function configureStore(initialState = {}) {
 
   const middlewares = [];
 
-  const enhancers = [applyMiddleware(...middlewares), persistState()];
+  const enhancers = [applyMiddleware(...middlewares)];
+
+  const persistedReducer = persistReducer(
+    {
+      key: 'cmmi-store',
+      storage,
+    },
+    createReducer(),
+  );
 
   const store = createStore(
-    createReducer(),
+    persistedReducer,
     initialState,
     composeEnhancers(...enhancers),
   );
@@ -29,7 +38,10 @@ function configureStore(initialState = {}) {
     });
   }
 
-  return store;
+  return {
+    store,
+    persistor: persistStore(store),
+  };
 }
 
 export default configureStore;

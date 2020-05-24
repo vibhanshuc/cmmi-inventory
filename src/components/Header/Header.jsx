@@ -11,7 +11,7 @@ function Header({ defaultSelectedMenu, menuOptions, actionBar }) {
     <>
       <AntdHeader className={styles.header}>
         <Row type="flex">
-          <div className={styles.logo}>CMMI</div>
+          <div className={styles.logo}>CMM Inc.</div>
         </Row>
         {actionBar}
       </AntdHeader>
