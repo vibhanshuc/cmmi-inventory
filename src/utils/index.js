@@ -8,6 +8,15 @@ export function getPageNameFromPathName(pathname) {
     .join('');
 }
 
+export function getIdFromParams(pathName) {
+  const parts = pathName.split('/types/');
+
+  if (parts.length > 1) {
+    return parts[1];
+  }
+  return undefined;
+}
+
 export const lazyLoadWithDelay = (componentPath, delay = 300) => {
   return lazy(() => {
     return Promise.all([

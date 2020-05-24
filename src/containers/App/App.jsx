@@ -8,16 +8,23 @@ import styles from './App.module.scss';
 import Header from '../../components/Header/Header';
 import routes from '../../routes';
 import { addTypeAction } from '../Types/actionCreators';
-import { getPageNameFromPathName } from '../../utils';
+import { getIdFromParams, getPageNameFromPathName } from '../../utils';
 import Loader from '../../components/Loader/Loader';
+import { addItemAction } from '../Objects/actionCreators';
 
 const { Content, Footer } = Layout;
 
-function App({ types, onTypeAdd }) {
+function App({ types, onTypeAdd, onItemAdd }) {
   const location = useLocation();
 
-  function handleMenuClick(e) {
-    console.log('click', e);
+  const id = getIdFromParams(location.pathname);
+
+  function handleItemAdd(typeId) {
+    onItemAdd(types.find((item) => item.id === typeId));
+  }
+
+  function handleMenuClick(event) {
+    handleItemAdd(event.key);
   }
 
   // eslint-disable-next-line
@@ -40,14 +47,18 @@ function App({ types, onTypeAdd }) {
           </Dropdown>
         );
       case 'types':
-        return (
+        return types.length > 0 ? (
           <Button onClick={onTypeAdd}>
             Add Type <PlusCircleOutlined />
           </Button>
-        );
+        ) : null;
       default:
         return (
-          <Button onClick={() => console.log('handle item addition')}>
+          <Button
+            onClick={() => {
+              onItemAdd(types.find((item) => item.id === id));
+            }}
+          >
             Add Item <PlusCircleOutlined />
           </Button>
         );
@@ -96,17 +107,24 @@ function App({ types, onTypeAdd }) {
   );
 }
 
-const mapStateToProps = (state) => state.types;
+const mapStateToProps = (state) => ({
+  types: state.types.types,
+  objects: state.objects.objects,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onTypeAdd: () => {
     dispatch(addTypeAction());
+  },
+  onItemAdd: (itemType) => {
+    dispatch(addItemAction(itemType));
   },
 });
 
 App.propTypes = {
   types: arrayOf(shape({})).isRequired,
   onTypeAdd: func.isRequired,
+  onItemAdd: func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
