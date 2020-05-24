@@ -2,10 +2,9 @@ import React from 'react';
 import { Col, Row } from 'antd';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { deleteItemAction } from './actionCreators';
+import { arrayOf, func, shape } from 'prop-types';
+import { deleteItemAction, updateFieldValue } from './actionCreators';
 import Item from '../../components/Item/Item';
-
-/* eslint-disable react/prop-types    */
 
 function Objects({ types, objects, onItemDelete, onFieldValueChange }) {
   const { id } = useParams();
@@ -34,18 +33,25 @@ function Objects({ types, objects, onItemDelete, onFieldValueChange }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  types: state.types.types,
-  objects: state.objects.objects,
+const mapStateToProps = ({ types, objects }) => ({
+  types: types.types,
+  objects: objects.objects,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onFieldValueChange(itemId, fieldId, fieldValue) {
-    console.log({ itemId, fieldId, fieldValue });
+    dispatch(updateFieldValue(itemId, fieldId, fieldValue));
   },
   onItemDelete: (itemId) => {
     dispatch(deleteItemAction(itemId));
   },
 });
+
+Objects.propTypes = {
+  types: arrayOf(shape({})).isRequired,
+  objects: arrayOf(shape({})).isRequired,
+  onItemDelete: func.isRequired,
+  onFieldValueChange: func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Objects);

@@ -1,7 +1,15 @@
 import React from 'react';
 import { Button, Card, Form, Modal } from 'antd';
 import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { arrayOf, func, shape, string } from 'prop-types';
+import {
+  arrayOf,
+  func,
+  number,
+  object,
+  oneOfType,
+  shape,
+  string,
+} from 'prop-types';
 import FieldInput from '../FieldInput/FieldInput';
 
 const { confirm } = Modal;
@@ -11,6 +19,7 @@ function Item({ id, type, fields, onDelete, onFieldValueChange }) {
     confirm({
       title: 'Do you want to delete this item?',
       icon: <ExclamationCircleOutlined />,
+      okType: 'danger',
       onOk() {
         onDelete(id);
       },
@@ -21,23 +30,37 @@ function Item({ id, type, fields, onDelete, onFieldValueChange }) {
     return type.fields.find((field) => field.id === fieldId);
   }
 
+  function findTitleFieldValue() {
+    const titleField = fields.find((field) => field.fieldId === type.title);
+    return titleField ? ` - ${titleField.value}` : '';
+  }
+
   return (
     <Card
-      title={`${type.name} - `}
-      extra={<Button onClick={handleDeleteClick} icon={<DeleteOutlined />} />}
+      title={`${type.name}${findTitleFieldValue()}`}
+      extra={
+        <Button
+          type="primary"
+          danger
+          onClick={handleDeleteClick}
+          icon={<DeleteOutlined />}
+        />
+      }
     >
       <Form layout="vertical">
         {fields.map((field) => {
+          const fieldType = findFieldType(field.fieldId);
           return (
-            <Form.Item
-              key={field.fieldId}
-              label={findFieldType(field.fieldId).text}
-            >
+            <Form.Item key={field.fieldId} label={fieldType.text}>
               <FieldInput
                 onChange={(value) => {
                   onFieldValueChange(id, field.id, value);
                 }}
-                fieldType={findFieldType(field.fieldId).type}
+                field={{
+                  ...field,
+                  label: fieldType.text,
+                  type: fieldType.type,
+                }}
               />
             </Form.Item>
           );
@@ -57,7 +80,7 @@ Item.propTypes = {
     shape({
       id: string.isRequired,
       fieldId: string.isRequired,
-      value: string.isRequired,
+      value: oneOfType([string, number, object]).isRequired,
     }),
   ).isRequired,
   onDelete: func.isRequired,

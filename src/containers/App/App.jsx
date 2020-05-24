@@ -14,7 +14,7 @@ import { addItemAction } from '../Objects/actionCreators';
 
 const { Content, Footer } = Layout;
 
-function App({ types, onTypeAdd, onItemAdd }) {
+function App({ types, objects, onTypeAdd, onItemAdd }) {
   const location = useLocation();
 
   const id = getIdFromParams(location.pathname);
@@ -27,7 +27,6 @@ function App({ types, onTypeAdd, onItemAdd }) {
     handleItemAdd(event.key);
   }
 
-  // eslint-disable-next-line
   const menu = (
     <Menu onClick={handleMenuClick}>
       {types.map((type) => (
@@ -39,22 +38,24 @@ function App({ types, onTypeAdd, onItemAdd }) {
   function actionBar(page) {
     switch (page) {
       case '':
-        return (
+        return types.length > 0 ? (
           <Dropdown overlay={menu}>
-            <Button>
+            <Button size="large" shape="round">
               Add Items <DownOutlined />
             </Button>
           </Dropdown>
-        );
+        ) : null;
       case 'types':
         return types.length > 0 ? (
-          <Button onClick={onTypeAdd}>
+          <Button size="large" shape="round" onClick={onTypeAdd}>
             Add Type <PlusCircleOutlined />
           </Button>
         ) : null;
       default:
         return (
           <Button
+            size="large"
+            shape="round"
             onClick={() => {
               onItemAdd(types.find((item) => item.id === id));
             }}
@@ -69,13 +70,17 @@ function App({ types, onTypeAdd, onItemAdd }) {
     {
       link: '/',
       key: 'all',
-      label: 'All',
+      label: `All ${objects.length > 0 ? `(${objects.length})` : ''}`,
     },
     ...types.map((type) => {
+      const countOfItems = objects.filter((object) => object.type === type.id)
+        .length;
       return {
         link: `/types/${type.id}`,
         key: type.id,
-        label: type.name || type.id,
+        label: `${type.name || type.id} ${
+          countOfItems > 0 ? `(${countOfItems})` : ''
+        }`,
       };
     }),
     {
@@ -123,6 +128,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 App.propTypes = {
   types: arrayOf(shape({})).isRequired,
+  objects: arrayOf(shape({})).isRequired,
   onTypeAdd: func.isRequired,
   onItemAdd: func.isRequired,
 };

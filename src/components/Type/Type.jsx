@@ -45,6 +45,7 @@ function Type({
       title: 'Do you want to delete this type?',
       icon: <ExclamationCircleOutlined />,
       content: 'All the items of this type will also get deleted',
+      okType: 'danger',
       onOk() {
         onDelete(id);
       },
@@ -62,7 +63,9 @@ function Type({
   return (
     <Card
       title={name}
-      extra={<Button onClick={handleDeleteClick} icon={<DeleteOutlined />} />}
+      extra={
+        <Button danger onClick={handleDeleteClick} icon={<DeleteOutlined />} />
+      }
     >
       <Form name={name} layout="vertical">
         <Form.Item initialValue={name} label="Object type" name="objectType">
@@ -106,7 +109,7 @@ function Type({
 
         <Form.Item>
           <Dropdown overlay={menu}>
-            <Button block>
+            <Button size="large" shape="round" block>
               Add Field <DownOutlined />
             </Button>
           </Dropdown>
