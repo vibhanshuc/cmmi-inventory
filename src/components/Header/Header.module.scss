@@ -2,6 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  &:global(.ant-layout-header) {
+    padding: 0 2rem;
+  }
 }
 
 .logo {

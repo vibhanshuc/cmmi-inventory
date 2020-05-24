@@ -4,6 +4,7 @@
     sans-serif;
   --secondary-font-family: 'Chelsea Market', cursive;
   --primary-color: #1890ff;
+  font-size: 14px;
 }
 
 body {
@@ -11,4 +12,10 @@ body {
   font-family: var(--primary-font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (device-width: 360px) and (device-height: 640px) {
+  :root {
+    font-size: 12px;
+  }
 }

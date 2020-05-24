@@ -17,7 +17,7 @@ function Header({ defaultSelectedMenu, menuOptions, actionBar }) {
       </AntdHeader>
       <Menu
         className={styles.menu}
-        defaultSelectedKeys={defaultSelectedMenu}
+        selectedKeys={defaultSelectedMenu}
         mode="horizontal"
       >
         {menuOptions.map((option) => (

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Row, Button, Col, Empty } from 'antd';
+import { Row, Col, Empty } from 'antd';
 import { connect } from 'react-redux';
 import { arrayOf, func, shape } from 'prop-types';
-import { PlusCircleOutlined } from '@ant-design/icons';
 import {
   changeNameAction,
   changeTitleAction,
@@ -14,10 +13,13 @@ import {
   deleteTypeAction,
 } from './actionCreators';
 import Type from '../../components/Type/Type';
+import ActionBar from '../../components/ActionButton';
+import { addItemAction } from '../Objects/actionCreators';
 
 function Types({
   types,
   onTypeAdd,
+  onItemAdd,
   onTypeDelete,
   onNameChange,
   onTitleChange,
@@ -49,9 +51,7 @@ function Types({
   ) : (
     <Row justify="center" align="middle">
       <Empty description="No types are created yet.">
-        <Button type="primary" onClick={onTypeAdd}>
-          Add Type <PlusCircleOutlined />
-        </Button>
+        <ActionBar types={types} onItemAdd={onItemAdd} onTypeAdd={onTypeAdd} />
       </Empty>
     </Row>
   );
@@ -59,6 +59,7 @@ function Types({
 
 Types.propTypes = {
   types: arrayOf(shape({})).isRequired,
+  onItemAdd: func.isRequired,
   onTypeAdd: func.isRequired,
   onTypeDelete: func.isRequired,
   onNameChange: func.isRequired,
@@ -72,6 +73,9 @@ Types.propTypes = {
 const mapStateToProps = (state) => state.types;
 
 const mapDispatchToProps = (dispatch) => ({
+  onItemAdd: (itemType) => {
+    dispatch(addItemAction(itemType));
+  },
   onTypeAdd: () => {
     dispatch(addTypeAction());
   },
