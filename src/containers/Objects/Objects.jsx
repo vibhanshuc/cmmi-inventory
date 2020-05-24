@@ -55,7 +55,7 @@ function Objects({
   ) : (
     <Empty
       description={
-        objects.length > 0
+        types.length > 0
           ? 'No items are created. Create one'
           : 'In order to create items please create a type first'
       }
