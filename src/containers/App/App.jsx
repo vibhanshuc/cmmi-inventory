@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Button, Layout, Dropdown, Menu, Spin, Row } from 'antd';
+import { Button, Layout, Dropdown, Menu } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PlusCircleOutlined, DownOutlined } from '@ant-design/icons';
@@ -9,6 +9,7 @@ import Header from '../../components/Header/Header';
 import routes from '../../routes';
 import { addTypeAction } from '../Types/actionCreators';
 import { getPageNameFromPathName } from '../../utils';
+import Loader from '../../components/Loader/Loader';
 
 const { Content, Footer } = Layout;
 
@@ -68,7 +69,7 @@ function App({ types, onTypeAdd }) {
     }),
     {
       link: '/types',
-      label: 'Manage Types',
+      label: `Manage Types ${types.length > 0 ? `(${types.length})` : ''}`,
       key: 'types',
     },
   ];
@@ -86,15 +87,7 @@ function App({ types, onTypeAdd }) {
       </div>
 
       <Content className={styles.content}>
-        <Suspense
-          fallback={
-            <Row align="middle" justify="center" className={styles.loader}>
-              <Spin />
-            </Row>
-          }
-        >
-          {routes}
-        </Suspense>
+        <Suspense fallback={<Loader />}>{routes}</Suspense>
       </Content>
       <Footer className={styles.footer}>
         CMM Inc. &copy; {new Date().getFullYear()}

@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import App from './containers/App/App';
 import configureStore from './configureStore';
 import history from './utils/history';
+import Loader from './components/Loader/Loader';
 
 import 'antd/dist/antd.css';
 import './index.scss';
@@ -20,7 +21,7 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate loading={<Loader />} persistor={persistor}>
           <App />
         </PersistGate>
       </Router>

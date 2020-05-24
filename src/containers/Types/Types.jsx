@@ -1,7 +1,8 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Button, Col, Empty } from 'antd';
 import { connect } from 'react-redux';
 import { arrayOf, func, shape } from 'prop-types';
+import { PlusCircleOutlined } from '@ant-design/icons';
 import {
   changeNameAction,
   changeTitleAction,
@@ -16,6 +17,7 @@ import Type from '../../components/Type/Type';
 
 function Types({
   types,
+  onTypeAdd,
   onTypeDelete,
   onNameChange,
   onTitleChange,
@@ -24,7 +26,7 @@ function Types({
   onFieldTextChange,
   onFieldTypeChange,
 }) {
-  return (
+  return types.length > 0 ? (
     <Row gutter={[16, 16]}>
       {types.map((type) => (
         <Col key={type.id} xs={24} sm={24} lg={12} xl={8} xxl={6}>
@@ -44,11 +46,20 @@ function Types({
         </Col>
       ))}
     </Row>
+  ) : (
+    <Row justify="center" align="middle">
+      <Empty description="No types are created yet.">
+        <Button type="primary" onClick={onTypeAdd}>
+          Add Type <PlusCircleOutlined />
+        </Button>
+      </Empty>
+    </Row>
   );
 }
 
 Types.propTypes = {
   types: arrayOf(shape({})).isRequired,
+  onTypeAdd: func.isRequired,
   onTypeDelete: func.isRequired,
   onNameChange: func.isRequired,
   onTitleChange: func.isRequired,

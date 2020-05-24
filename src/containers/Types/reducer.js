@@ -31,7 +31,7 @@ const createType = () => {
 };
 
 const initialState = {
-  types: [createType()],
+  types: [],
 };
 
 function TypesReducer(state = initialState, action) {
