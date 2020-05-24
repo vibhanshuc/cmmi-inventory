@@ -1,10 +1,8 @@
 import { DatePicker, Input, InputNumber } from 'antd';
 import { func, shape } from 'prop-types';
+import dayjs from 'dayjs';
 import React from 'react';
-import moment from 'moment';
 import { FIELD_TYPES } from '../../utils/constants';
-
-const dateFormat = 'YYYY/MM/DD';
 
 function FieldInput({ field, onChange }) {
   switch (field.type) {
@@ -36,7 +34,7 @@ function FieldInput({ field, onChange }) {
       return (
         <DatePicker
           placeholder={field.label}
-          defaultValue={moment(field.value, dateFormat)}
+          defaultValue={dayjs(field.value)}
           onChange={(date, datestring) => onChange(datestring)}
         />
       );

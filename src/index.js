@@ -9,7 +9,6 @@ import configureStore from './configureStore';
 import history from './utils/history';
 import Loader from './components/Loader/Loader';
 
-import 'antd/dist/antd.css';
 import './index.scss';
 
 // Create redux store with history
