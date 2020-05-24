@@ -9,7 +9,7 @@ import {
   updateFieldValue,
 } from './actionCreators';
 import Item from '../../components/Item/Item';
-import ActionBar from '../../components/ActionButton';
+import ActionButton from '../../components/ActionButton';
 import { addTypeAction } from '../Types/actionCreators';
 
 function Objects({
@@ -60,7 +60,7 @@ function Objects({
           : 'In order to create items please create a type first'
       }
     >
-      <ActionBar
+      <ActionButton
         onTypeAdd={handleAddTypeClick}
         onItemAdd={onItemAdd}
         types={types}

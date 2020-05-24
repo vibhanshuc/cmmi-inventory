@@ -5,9 +5,9 @@ import React from 'react';
 import { arrayOf, bool, func, shape } from 'prop-types';
 import { getIdFromParams, getPageNameFromPathName } from '../utils';
 
-function ActionBar({
-  showAddType = true,
-  showAddItem = true,
+function ActionButton({
+  showAddType,
+  showAddItem,
   types,
   onTypeAdd,
   onItemAdd,
@@ -72,7 +72,7 @@ function ActionBar({
   }
 }
 
-ActionBar.propTypes = {
+ActionButton.propTypes = {
   showAddType: bool,
   showAddItem: bool,
   types: arrayOf(shape({})).isRequired,
@@ -80,9 +80,9 @@ ActionBar.propTypes = {
   onItemAdd: func.isRequired,
 };
 
-ActionBar.defaultProps = {
-  showAddType: false,
-  showAddItem: false,
+ActionButton.defaultProps = {
+  showAddType: true,
+  showAddItem: true,
 };
 
-export default ActionBar;
+export default ActionButton;

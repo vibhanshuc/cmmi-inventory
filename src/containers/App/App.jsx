@@ -10,7 +10,7 @@ import { addTypeAction } from '../Types/actionCreators';
 import { getPageNameFromPathName } from '../../utils';
 import Loader from '../../components/Loader/Loader';
 import { addItemAction } from '../Objects/actionCreators';
-import ActionBar from '../../components/ActionButton';
+import ActionButton from '../../components/ActionButton';
 
 const { Content, Footer } = Layout;
 
@@ -50,7 +50,7 @@ function App({ types, objects, onTypeAdd, onItemAdd }) {
           ]}
           menuOptions={menuOptions}
           actionBar={
-            <ActionBar
+            <ActionButton
               showAddItem={objects.length > 0}
               showAddType={types.length > 0}
               types={types}
